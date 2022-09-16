@@ -5,6 +5,12 @@ export default function styleInject(css, { insertAt } = {}) {
   const style = document.createElement('style')
   style.type = 'text/css'
 
+  let nonce
+  if (typeof window.__webpack_nonce__ !== 'undefined') nonce = window.__webpack_nonce__
+	if (typeof window.nonce !== 'undefined') nonce = window.nonce
+
+  if (nonce) style.setAttribute('nonce', nonce)
+
   if (insertAt === 'top') {
     if (head.firstChild) {
       head.insertBefore(style, head.firstChild)
